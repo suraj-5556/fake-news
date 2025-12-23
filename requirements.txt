@@ -1,0 +1,21 @@
+# Core numerical & data handling
+numpy
+pandas
+
+# Machine Learning
+scikit-learn
+joblib
+
+# Deep Learning
+tensorflow
+
+# Visualization
+matplotlib
+seaborn
+
+# NLP (TF-IDF comes from scikit-learn)
+nltk
+spacy
+
+# Utilities
+tqdm
