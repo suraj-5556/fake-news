@@ -28,7 +28,7 @@ def data_preprocess (df : pd.DataFrame ,params :dict):
     try:
         logging.info("preprocessing data")
         col = params["data_ingestion"]["remove_col"]
-        df = df.dropna(subset=params["data_ingestion"]["remove_col"])
+        df = df.drop(columns=params["data_ingestion"]["remove_col"])
         logging.info("preprocessing done")
         return df
     except Exception as e:
@@ -41,7 +41,7 @@ def save_data (train : pd.DataFrame , test : pd.DataFrame , path : str) -> None 
         os.makedirs(raw_data_path, exist_ok=True)
         train.to_csv(os.path.join(raw_data_path, "train.csv"), index=False)
         test.to_csv(os.path.join(raw_data_path, "test.csv"), index=False)
-        logging.debug('Train and test data saved to %s', raw_data_path)
+        logging.info('Train and test data saved to %s', raw_data_path)
 
     except Exception as e:
         logging.error(f"fale to save data at {path}")
