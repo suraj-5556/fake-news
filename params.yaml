@@ -1,3 +1,8 @@
 data_ingestion :
   remove_col: "news_url"
   test_size: 0.2
+
+data_validation :
+  no_of_cols : 4
+  str_cols: ["title","source_domain"]
+  num_cols: ["tweet_num","real"]
