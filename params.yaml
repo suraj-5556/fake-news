@@ -6,3 +6,14 @@ data_validation :
   no_of_cols : 4
   str_cols: ["title","source_domain"]
   num_cols: ["tweet_num","real"]
+
+build_features:
+  target : "real"
+  text_cols : ["title","source_domain"]
+  num_cols : ["tweet_num"]
+
+build_model :
+  max_iters : 1000
+  penalty : "l2"
+  class_weight : "balanced"
+  random_state : 42
