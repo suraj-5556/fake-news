@@ -109,7 +109,7 @@ def main () -> None:
         mlflow.set_experiment("automated_pipeline")
         with mlflow.start_run() as run:
             model = load_model(path='./models/model.pkl')
-            test = read_csv('./data/raw/test.csv')
+            test = read_csv('./data/processed/test.csv')
             params_yaml = load_params(params_path='./params.yaml')
 
             target = params_yaml["build_features"]["target"]
