@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeriNews - Fake News Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" fill="#4ECDC4"/>
+                        <path d="M8 12L11 15L16 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="brand-name">VeriNews</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="#">Matrix</a></li>
+                <li><a href="#">Data Logs</a></li>
+            </ul>
+            <button class="login-btn">Log In</button>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="content-wrapper">
+            <div class="input-card">
+                <h2 class="card-title">Input News Details</h2>
+                <form action="/predict" method="POST" class="input-form">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input type="text" id="title" name="title" placeholder="News Title" required>
+                            <span class="input-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M7 7H17M7 12H17M7 17H13" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input type="text" id="source_domain" name="source_domain" placeholder="News Source" required>
+                            <span class="input-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <input type="number" id="tweet_num" name="tweet_num" placeholder="Number of Related Tweets" required>
+                            <span class="input-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23 3C22.0424 3.67548 20.9821 4.19211 19.86 4.53C19.2577 3.83751 18.4573 3.34669 17.567 3.12393C16.6767 2.90116 15.7395 2.95718 14.8821 3.28445C14.0247 3.61173 13.2884 4.1944 12.773 4.95372C12.2575 5.71303 11.9877 6.61234 12 7.53V8.53C10.2426 8.57557 8.50127 8.18581 6.93101 7.39545C5.36074 6.60508 4.01032 5.43864 3 4C3 4 -1 13 8 17C5.94053 18.398 3.48716 19.099 1 19C10 24 21 19 21 7.5C20.9991 7.22145 20.9723 6.94359 20.92 6.67C21.9406 5.66349 22.6608 4.39271 23 3V3Z" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Check News Authenticity</button>
+                </form>
+            </div>
+
+            <div class="result-card">
+                <h2 class="card-title">Analysis Result</h2>
+                
+                {% if result is not none %}
+                <div class="result-content">
+                    {% if result == 0 %}
+                    <div class="result-badge fake">FAKE NEWS</div>
+                    {% else %}
+                    <div class="result-badge real">REAL NEWS</div>
+                    {% endif %}
+
+                    <div class="confidence-circle">
+                        <svg width="200" height="200" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="85" fill="none" stroke="#E5E7EB" stroke-width="12"/>
+                            {% if result == 0 %}
+                            <circle cx="100" cy="100" r="85" fill="none" stroke="#EF4444" stroke-width="12" 
+                                    stroke-dasharray="{{ (probability[0] * 534) }}, 534" 
+                                    stroke-linecap="round" 
+                                    transform="rotate(-90 100 100)"/>
+                            {% else %}
+                            <circle cx="100" cy="100" r="85" fill="none" stroke="#4ECDC4" stroke-width="12" 
+                                    stroke-dasharray="{{ (probability[1] * 534) }}, 534" 
+                                    stroke-linecap="round" 
+                                    transform="rotate(-90 100 100)"/>
+                            {% endif %}
+                        </svg>
+                        <div class="confidence-text">
+                            {% if result == 0 %}
+                            <div class="confidence-value">{{ "%.0f"|format(probability[0] * 100) }}%</div>
+                            {% else %}
+                            <div class="confidence-value">{{ "%.0f"|format(probability[1] * 100) }}%</div>
+                            {% endif %}
+                            <div class="confidence-label">Confidence</div>
+                        </div>
+                    </div>
+
+                    <div class="indicators">
+                        {% if result == 0 %}
+                        <div class="indicator-item">
+                            <span class="indicator-icon">✗</span>
+                            <span>Low Source Reputation</span>
+                        </div>
+                        <div class="indicator-item">
+                            <span class="indicator-icon">✗</span>
+                            <span>Inconsistent Reporting</span>
+                        </div>
+                        <div class="indicator-item">
+                            <span class="indicator-icon">✗</span>
+                            <span>High Social Velocity</span>
+                        </div>
+                        {% else %}
+                        <div class="indicator-item verified">
+                            <span class="indicator-icon">✓</span>
+                            <span>Trusted Source</span>
+                        </div>
+                        <div class="indicator-item verified">
+                            <span class="indicator-icon">✓</span>
+                            <span>Consistent Reporting</span>
+                        </div>
+                        <div class="indicator-item verified">
+                            <span class="indicator-icon">✓</span>
+                            <span>Verified Claims</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="result-placeholder">
+                    <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="#D1D5DB" stroke-width="1.5"/>
+                        <path d="M12 6V12L16 14" stroke="#D1D5DB" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <p>Enter news details and click "Check News Authenticity" to see results</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>
