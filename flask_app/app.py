@@ -93,22 +93,22 @@ PREDICTION_COUNT = Counter(
 
 # ------------------------------------------------------------------------------------------
 # Model and vectorizer setup
-# model_name = "my_model"
-# def get_latest_model_version(model_name):
-#     logging.info("building connection with mlflow ...")
-#     client = mlflow.MlflowClient()
-#     logging.info("getting best model from mlflow models registry ")
-#     latest_version = client.get_latest_versions(model_name, stages=["Production"])
-#     if not latest_version:
-#         latest_version = client.get_latest_versions(model_name, stages=["Staging"])
-#     return latest_version[0].version if latest_version else None
+model_name = "my_model"
+def get_latest_model_version(model_name):
+    logging.info("building connection with mlflow ...")
+    client = mlflow.MlflowClient()
+    logging.info("getting best model from mlflow models registry ")
+    latest_version = client.get_latest_versions(model_name, stages=["Production"])
+    if not latest_version:
+        latest_version = client.get_latest_versions(model_name, stages=["Staging"])
+    return latest_version[0].version if latest_version else None
 
-# model_version = get_latest_model_version(model_name)
-# model_uri = f'models:/{model_name}/{model_version}'
-# logging.info(f"Fetching model from: {model_uri}")
-# model = mlflow.pyfunc.load_model(model_uri)
-with open("./models/model.pkl", "rb") as file:
-    model = pickle.load(file)
+model_version = get_latest_model_version(model_name)
+model_uri = f'models:/{model_name}/{model_version}'
+logging.info(f"Fetching model from: {model_uri}")
+model = mlflow.sklearn.load_model(model_uri)
+# with open("./models/model.pkl", "rb") as file:
+#     model = pickle.load(file)
 # Routes
 @app.route("/")
 def home():
