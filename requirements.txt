@@ -30,4 +30,5 @@ requests
 click
 
 #modules
+dvc
 -e .
