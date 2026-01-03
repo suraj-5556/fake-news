@@ -118,6 +118,7 @@ def main () -> None:
 
             report = model_eval(model=model , x_test=text_x ,
                                 y_test=test_y)
+            os.makedirs("./reports", exist_ok=True)
             
             save_matric(report=report , path="./reports/metrics.json")
 
