@@ -10,6 +10,7 @@ numpy
 # NLP Libraries
 spacy
 nltk
+re
 
 # Web Framework
 Flask
