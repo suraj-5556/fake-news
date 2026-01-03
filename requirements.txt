@@ -29,6 +29,5 @@ great-expectations
 requests
 click
 
-#modules
 dvc
 -e .
