@@ -1,21 +1,33 @@
-# Core numerical & data handling
-numpy
-pandas
-
-# Machine Learning
+# Core ML Libraries
+mlflow
+dagshub
 scikit-learn
-joblib
 
-# Deep Learning
-tensorflow
+# Data Processing
+pandas
+numpy
 
-# Visualization
-matplotlib
-seaborn
-
-# NLP (TF-IDF comes from scikit-learn)
-nltk
+# NLP Libraries
 spacy
+nltk
+
+# Web Framework
+Flask
+gunicorn
+
+# Monitoring
+prometheus-client
+
+# Python Environment
+python-dotenv
+
+# Testing
+pytest
+great-expectations
 
 # Utilities
-tqdm
+requests
+click
+
+#modules
+-e .
