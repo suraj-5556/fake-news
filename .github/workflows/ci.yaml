@@ -26,7 +26,7 @@ jobs:
       - name: install dependencies
         run: |
           pip install -r requirements.txt
-          
+
       - name: Install spaCy model
         run: python -m spacy download en_core_web_sm
 
@@ -42,16 +42,16 @@ jobs:
         env:
           CAPSTONE_TEST: ${{ secrets.CAPSTONE_TEST }}
         run: |
-          python -m unittest tests/test_model.py
+          python -m unittest test/test_model.py
 
       - name: Promote model to production
         if: success()
         env:
           CAPSTONE_TEST: ${{ secrets.CAPSTONE_TEST }}
-        run: python scripts/promote_model.py
+        run: python script/promote_model.py
 
       - name: Run Flask app tests
         if: success()
         env:
           CAPSTONE_TEST: ${{ secrets.CAPSTONE_TEST }}
-        run: python -m unittest tests/test_flask_app.py
+        run: python -m unittest test/test_flask_app.py
