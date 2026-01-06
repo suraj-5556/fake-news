@@ -1,6 +1,6 @@
 import unittest
 from flask_app.app import app
-
+from src.model.train_model import combine_text_columns
 def combine_text_columns(x):
         return x.astype(str).agg(" ".join, axis=1)   
 
