@@ -1,6 +1,10 @@
 import unittest
 from flask_app.app import app
 
+def combine_text_columns(x):
+        return x.astype(str).agg(" ".join, axis=1)   
+
+
 class FlaskAppTests(unittest.TestCase):
 
     @classmethod
