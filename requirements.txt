@@ -29,5 +29,6 @@ great-expectations
 requests
 click
 
+pathspec<0.12
 dvc
 -e .
