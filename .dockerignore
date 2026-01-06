@@ -1,0 +1,48 @@
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+
+# Environments
+venv/
+env/
+.venv/
+
+# DVC + data
+.dvc/
+.dvcignore
+data/
+datasets/
+artifacts/
+
+# Logs & temp files
+logs/
+*.log
+tmp/
+temp/
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# Packages & build artifacts
+build/
+dist/
+*.egg-info/
+
+# OS files
+.DS_Store
+
+# Notebooks
+*.ipynb_checkpoints
+.ipynb_checkpoints/
+
+# Large model folders (you explicitly copy required files)
+models/
+!models/model.pkl
