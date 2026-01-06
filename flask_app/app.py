@@ -108,11 +108,10 @@ PREDICTION_COUNT = Counter(
 # model_uri = f'models:/{model_name}/{model_version}'
 # logging.info(f"Fetching model from: {model_uri}")
 # model = mlflow.sklearn.load_model(model_uri)
-def load_model():
-    global model
-    with open("./models/model.pkl", "rb") as file:
-        model = pickle.load(file)
-load_model()
+
+with open("./models/model.pkl", "rb") as file:
+    model = pickle.load(file)
+
 # Routes
 @app.route("/")
 def home():
