@@ -13,6 +13,10 @@ import warnings
 warnings.simplefilter("ignore", UserWarning)
 warnings.filterwarnings("ignore")
 
+def combine_text_columns(x):
+        return x.astype(str).agg(" ".join, axis=1)   
+
+
 # 1. Read token securely
 dagshub_token = os.getenv("CAPSTONE_TEST")
 if not dagshub_token:
@@ -62,9 +66,6 @@ def preprocessing_data (df : pd.DataFrame) -> pd.DataFrame :
     except Exception as e:
         logging.error("error in preprocessing data")
 
-def combine_text_columns(x):
-        return x.astype(str).agg(" ".join, axis=1)   
-
 def prediction (df : pd.DataFrame , model : object) :
      try:
           result = model.predict(df)
@@ -107,8 +108,11 @@ PREDICTION_COUNT = Counter(
 # model_uri = f'models:/{model_name}/{model_version}'
 # logging.info(f"Fetching model from: {model_uri}")
 # model = mlflow.sklearn.load_model(model_uri)
-with open("./models/model.pkl", "rb") as file:
-    model = pickle.load(file)
+def load_model():
+    global model
+    with open("./models/model.pkl", "rb") as file:
+        model = pickle.load(file)
+load_model()
 # Routes
 @app.route("/")
 def home():
