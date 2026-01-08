@@ -15,7 +15,7 @@ RUN python -m spacy download en_core_web_sm
 EXPOSE 5000
 
 #local
-CMD ["python", "app.py"]  
+# CMD ["python", "app.py"]  
 
 #Prod
-# CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "120", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "120", "app:app"]
