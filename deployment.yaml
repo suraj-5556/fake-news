@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fake_news
+  name: fake-news
   labels:
-    app: fake_news
+    app: fake-news
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: fake_news
+      app: fake-news
   template:
     metadata:
       labels:
-        app: fake_news
+        app: fake-news
     spec:
       containers:
-      - name: fake_news
-        image: 249483768367.dkr.ecr.us-east-1.amazonaws.com/fake_news:latest
+      - name: fake-news
+        image: 249483768367.dkr.ecr.us-east-1.amazonaws.com/fake-news:latest
         ports:
         - containerPort: 5000
         resources:
@@ -41,7 +41,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: fake_news
+    app: fake-news
   ports:
     - name: http
       protocol: TCP
