@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fake_news
+  labels:
+    app: fake_news
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fake_news
+  template:
+    metadata:
+      labels:
+        app: fake_news
+    spec:
+      containers:
+      - name: fake_news
+        image: 249483768367.dkr.ecr.us-east-1.amazonaws.com/fake_news:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+        env:
+        - name: CAPSTONE_TEST
+          valueFrom:
+            secretKeyRef:
+              name: capstone-secret
+              key: CAPSTONE_TEST
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: fake_news
+  ports:
+    - name: http
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
