@@ -10,11 +10,12 @@ import re
 import dagshub
 import logging
 import warnings
+from preprocessing.utils import combine_text_columns
 warnings.simplefilter("ignore", UserWarning)
 warnings.filterwarnings("ignore")
 
-def combine_text_columns(x):
-        return x.astype(str).agg(" ".join, axis=1)   
+# def combine_text_columns(x):
+#         return x.astype(str).agg(" ".join, axis=1)   
 
 
 # 1. Read token securely
